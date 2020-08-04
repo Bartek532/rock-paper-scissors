@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content='Simple rock, paper and scissors game made with Vanilla JavaScript.' />
+	<link rel="stylesheet" type="text/css" href="./style.css" />
+	<title>Rock, paper, scissors game</title>
+	<link rel="shortcut icon" href="./favicon.ico" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+	<svg width="311" height="158" viewBox="0 0 311 158" fill="none" xmlns="http://www.w3.org/2000/svg" class="first">
+		<rect width="311" height="158" " />
+			<path
+				d=" M52.902 118.658L84.312 116.075L71.702 158.267L52.902 118.658Z" fill="#df5e88" class="flag" />
+		<path d="M119.054 110.767L129.702 141.267L141.812 105.756L119.054 110.767Z" fill="#f6efa6" class="flag" />
+		<path d="M213.828 77.567L243.702 99.267L237.864 66.884L213.828 77.567Z" fill="#f6ab6c" class="flag" />
+		<path
+			d="M28.163 119C10.7965 119 0.231067 118.014 0 117.992L0.194426 116.006C0.705894 116.056 52.1101 120.843 115.648 109.024C174.221 98.128 255.39 70.4819 309.449 0.654269L309.956 0L310.695 0.375139C311.392 0.728818 381.375 36.0618 463.511 61.6789C511.715 76.7132 554.607 85.508 590.995 87.8186C636.348 90.7002 671.619 83.458 695.841 66.2996L697 67.9267C672.391 85.3584 636.673 92.72 590.855 89.8092C554.305 87.4868 511.251 78.6609 462.888 63.5759C385.137 39.3234 318.26 6.3848 310.528 2.52451C286.542 33.2962 255.387 58.5142 217.917 77.481C187.75 92.7511 153.447 104.027 115.959 110.995C86.997 116.308 57.611 118.987 28.163 119Z"
+			fill="#2F2E41" class="line1" />
+	</svg>
+
+	<svg width="386" height="158" viewBox="0 0 386 158" fill="none" xmlns="http://www.w3.org/2000/svg" class="second">
+		<rect width="386" height="158" />
+
+		<path d="M53.272 24.735L56.702 67.267L75.786 36.237L53.272 24.735Z" fill="#f6efa6" class="flag" />
+		<path d="M266.415 88.861L288.702 135.267L307.671 88.861H266.415Z" fill="#f6ab6c" class="flag" />
+		<path d="M132.776 57.373L132.702 103.267L159.626 65.982L132.776 57.373Z" fill="#df5e88" class="flag" />
+		<path
+			d="M-282.837 119C-300.203 119 -310.769 118.014 -311 117.992L-310.806 116.006C-310.294 116.056 -258.89 120.843 -195.352 109.024C-136.779 98.1279 -55.6104 70.4819 -1.5506 0.654269L-1.04404 0L-0.304901 0.375139C0.392193 0.728818 70.3749 36.0618 152.511 61.6789C200.715 76.7132 243.607 85.508 279.995 87.8186C325.348 90.7002 360.619 83.458 384.841 66.2996L386 67.9267C361.391 85.3584 325.673 92.72 279.855 89.8092C243.305 87.4868 200.251 78.6609 151.888 63.5759C74.1374 39.3234 7.26012 6.3848 -0.472473 2.52451C-24.4577 33.2962 -55.6133 58.5142 -93.0834 77.481C-123.25 92.7511 -157.553 104.027 -195.041 110.995C-224.003 116.308 -253.389 118.987 -282.837 119Z"
+			fill="#2F2E41" class="line2" />
+	</svg>
+
+	<div class="choose">
+		<div class="options">
+			<div class="option"><i class="fas rock fa-hand-rock"></i></div>
+			<div class="option"><i class="fas paper fa-hand-paper"></i></div>
+			<div class="option">
+				<i class="fas scissors fa-hand-scissors"></i>
+			</div>
+		</div>
+	</div>
+	<div class="fight">
+		<div class="result"></div>
+		<div class="players">
+			<div class="user"></div>
+			<div class="versus">vs</div>
+			<div class="comp"></div>
+		</div>
+		<button class="again">Try again</button>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/gsap.min.js"></script>
+	<script src="./script.js"></script>
+</body>
+
+</html>
