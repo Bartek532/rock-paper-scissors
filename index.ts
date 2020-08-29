@@ -1,4 +1,4 @@
-import { gsap } from "gsap";
+import gsap from "gsap";
 
 const options: [string, string, string] = ["paper", "rock", "scissors"];
 const choose = document.querySelector(".choose .options") as HTMLElement;

@@ -1,15 +1,11 @@
 {
 	"devDependencies": {
-		"cssnano": "^4.1.10",
-		"gh-pages": "^3.1.0",
 		"typescript": "^4.0.2"
 	},
 	"dependencies": {
 		"gsap": "^3.5.1"
 	},
 	"scripts": {
-		"dev": "parcel index.html",
-		"build": "parcel build index.html",
 		"deploy": "gh-pages -d dist"
 	}
 }
