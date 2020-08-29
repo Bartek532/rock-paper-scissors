@@ -7,5 +7,6 @@
 	},
 	"scripts": {
 		"deploy": "gh-pages -d dist"
-	}
+	},
+	"homepage": "https://bartek532.github.io/RockPaperScissors/"
 }
