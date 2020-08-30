@@ -1,23 +1,25 @@
 import gsap from "gsap";
 
-const options: [string, string, string] = ["paper", "rock", "scissors"];
-const choose = document.querySelector(".choose .options") as HTMLElement;
-const userChoice = document.querySelector(".user") as HTMLElement;
-const compChoice = document.querySelector(".comp") as HTMLElement;
-const gameBoard = document.querySelector(".fight") as HTMLElement;
-const result = document.querySelector(".result") as HTMLElement;
-const againButton = document.querySelector(".again") as HTMLElement;
+const options = ["paper", "rock", "scissors"];
+const choose = document.querySelector(".choose .options");
+const userChoice = document.querySelector(".user");
+const compChoice = document.querySelector(".comp");
+const gameBoard = document.querySelector(".fight");
+const result = document.querySelector(".result");
+const againButton = document.querySelector(".again");
 
-let compRepeat: number = 0,
+let compRepeat = 0,
 	interval: number,
-	time: number = 300,
+	time = 300,
 	player: string;
 
 function playerChoose(e: Event): void {
 	for (const option of options) {
 		if ((e.target as HTMLElement).classList.contains(option)) {
-			userChoice.innerHTML =
-				(e.target as HTMLElement).parentElement?.innerHTML || "";
+			userChoice?.insertAdjacentHTML(
+				"beforeend",
+				(e.target as HTMLElement).parentElement?.innerHTML || ""
+			);
 			player = option;
 			gameBoard.style.zIndex = "10";
 			choose.style.opacity = "0";
@@ -32,8 +34,11 @@ document
 	.forEach((element) => element.addEventListener("click", playerChoose));
 
 function compChoose(): void {
-	let rand: number = Math.round(Math.random() * 2);
-	compChoice.innerHTML = '<i class="fas fa-hand-' + options[rand] + '"></i>';
+	const rand = Math.round(Math.random() * 2);
+	compChoice?.insertAdjacentHTML(
+		"beforeend",
+		'<i class="fas fa-hand-' + options[rand] + '"></i>'
+	);
 	compRepeat++;
 	time += 70;
 	if (compRepeat == 10) {
@@ -60,17 +65,17 @@ function winsFilters(param: string): string {
 		["paper", "scissors"],
 		["scissors", "rock"],
 	];
-	return wins.filter(([item]: string[]) => item === param)[0][1];
+	return wins.find(([item]: string[]) => item === param)[1];
 }
 
 function finish(winner: string): void {
-	result.innerHTML = winner;
+	result?.insertAdjacentHTML("beforeend", winner);
 	againButton.style.opacity = "1";
 }
 
 function again(): void {
 	gameBoard.style.zIndex = "-1";
-	result.innerHTML = "";
+	result?.insertAdjacentHTML("beforeend", "");
 	againButton.style.opacity = " 0";
 	choose.style.opacity = "1";
 	compRepeat = 0;
@@ -79,7 +84,7 @@ function again(): void {
 	});
 }
 
-againButton.addEventListener("click", again);
+againButton?.addEventListener("click", again);
 
 function animation(): void {
 	const tl = gsap.timeline();
