@@ -6,7 +6,8 @@
 		"gsap": "^3.5.1"
 	},
 	"scripts": {
-		"deploy": "gh-pages -d dist"
+		"deploy": "gh-pages -d dist",
+		"compile": "tsc"
 	},
 	"homepage": "https://bartek532.github.io/RockPaperScissors/"
 }
