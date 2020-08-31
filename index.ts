@@ -1,12 +1,14 @@
-import gsap from "gsap";
+import gsap from 'gsap';
 
-const options = ["paper", "rock", "scissors"];
-const choose = document.querySelector(".choose .options");
-const userChoice = document.querySelector(".user");
-const compChoice = document.querySelector(".comp");
-const gameBoard = document.querySelector(".fight");
-const result = document.querySelector(".result");
-const againButton = document.querySelector(".again");
+const options = ['paper', 'rock', 'scissors'];
+const elements: { [key: string]: HTMLElement | null } = {
+	choose: document.querySelector('.choose .options'),
+	userChoice: document.querySelector('.user'),
+	compChoice: document.querySelector('.comp'),
+	gameBoard: document.querySelector('.fight'),
+	result: document.querySelector('.result'),
+	againButton: document.querySelector('.again'),
+};
 
 let compRepeat = 0,
 	interval: number,
@@ -16,29 +18,26 @@ let compRepeat = 0,
 function playerChoose(e: Event): void {
 	for (const option of options) {
 		if ((e.target as HTMLElement).classList.contains(option)) {
-			userChoice?.insertAdjacentHTML(
-				"beforeend",
-				(e.target as HTMLElement).parentElement?.innerHTML || ""
+			elements.userChoice?.firstChild ? elements.userChoice?.removeChild(elements.userChoice?.firstChild) : null;
+			elements.userChoice?.insertAdjacentHTML(
+				'beforeend',
+				(e.target as HTMLElement).parentElement?.innerHTML || ''
 			);
 			player = option;
-			gameBoard.style.zIndex = "10";
-			choose.style.opacity = "0";
+			elements.gameBoard!.style.zIndex = '10';
+			elements.choose!.style.opacity = '0';
 			break;
 		}
 	}
 	interval = setInterval(compChoose, time);
 }
 
-document
-	.querySelectorAll(".option i")
-	.forEach((element) => element.addEventListener("click", playerChoose));
+document.querySelectorAll('.option i').forEach(element => element.addEventListener('click', playerChoose));
 
 function compChoose(): void {
 	const rand = Math.round(Math.random() * 2);
-	compChoice?.insertAdjacentHTML(
-		"beforeend",
-		'<i class="fas fa-hand-' + options[rand] + '"></i>'
-	);
+	elements.compChoice?.firstChild ? elements.compChoice?.removeChild(elements.compChoice!.firstChild) : null;
+	elements.compChoice?.insertAdjacentHTML('beforeend', '<i class="fas fa-hand-' + options[rand] + '"></i>');
 	compRepeat++;
 	time += 70;
 	if (compRepeat == 10) {
@@ -50,71 +49,73 @@ function compChoose(): void {
 
 function game(one: string, two: string): string {
 	if (winsFilters(one) === two) {
-		return "You lose :(";
+		return 'You lose :(';
 	} else if (winsFilters(two) === one) {
 		animation();
-		return "You win!";
+		return 'You win!';
 	} else {
-		return "Draw";
+		return 'Draw';
 	}
 }
 
 function winsFilters(param: string): string {
-	const wins: string[][] = [
-		["rock", "paper"],
-		["paper", "scissors"],
-		["scissors", "rock"],
+	const wins = [
+		['rock', 'paper'],
+		['paper', 'scissors'],
+		['scissors', 'rock'],
 	];
-	return wins.find(([item]: string[]) => item === param)[1];
+
+	const result = wins.find(([item]) => item === param);
+	return result ? result[1] : '';
 }
 
 function finish(winner: string): void {
-	result?.insertAdjacentHTML("beforeend", winner);
-	againButton.style.opacity = "1";
+	elements.result?.insertAdjacentHTML('beforeend', winner);
+	elements.againButton!.style.opacity = '1';
 }
 
 function again(): void {
-	gameBoard.style.zIndex = "-1";
-	result?.insertAdjacentHTML("beforeend", "");
-	againButton.style.opacity = " 0";
-	choose.style.opacity = "1";
+	elements.gameBoard!.style.zIndex = '-1';
+	elements.result?.insertAdjacentHTML('beforeend', '');
+	elements.againButton!.style.opacity = ' 0';
+	elements.choose!.style.opacity = '1';
 	compRepeat = 0;
-	gsap.set("svg", {
+	gsap.set('svg', {
 		opacity: 0,
 	});
 }
 
-againButton?.addEventListener("click", again);
+elements.againButton?.addEventListener('click', again);
 
 function animation(): void {
 	const tl = gsap.timeline();
 
-	tl.set("svg", {
+	tl.set('svg', {
 		opacity: 1,
 	})
-		.addLabel("party")
-		.from(".line1", {
+		.addLabel('party')
+		.from('.line1', {
 			y: -50,
 			x: 50,
 			scaleX: 0,
-			transformOrigin: "50% 100%",
+			transformOrigin: '50% 100%',
 			duration: 0.5,
 		})
 		.from(
-			".line2",
+			'.line2',
 			{
 				y: -50,
 				x: -50,
 				scaleX: 0,
-				transformOrigin: "0% 100%",
+				transformOrigin: '0% 100%',
 				duration: 0.5,
 			},
-			"party"
+			'party'
 		)
-		.from(".flag", {
+		.from('.flag', {
 			scale: 0,
 			stagger: 0.2,
-			transformOrigin: "50% 0%",
+			transformOrigin: '50% 0%',
 			duration: 0.5,
 		});
 }
