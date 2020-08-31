@@ -1,16 +1,16 @@
 import gsap from 'gsap';
 
 const options = ['paper', 'rock', 'scissors'];
-const elements: { [key: string]: HTMLElement | null } = {
+const elements: Record<string, HTMLElement | null> = {
 	choose: document.querySelector('.choose .options'),
 	userChoice: document.querySelector('.user'),
-	compChoice: document.querySelector('.comp'),
+	computerChoice: document.querySelector('.comp'),
 	gameBoard: document.querySelector('.fight'),
 	result: document.querySelector('.result'),
 	againButton: document.querySelector('.again')
 };
 
-let compRepeat = 0,
+let computerChooseRepeat = 0,
 	interval: number,
 	time = 300,
 	player: string;
@@ -18,39 +18,45 @@ let compRepeat = 0,
 function playerChoose(e: Event) {
 	for (const option of options) {
 		if ((e.target as HTMLElement).classList.contains(option)) {
-			elements.userChoice?.firstChild ? elements.userChoice?.removeChild(elements.userChoice?.firstChild) : null;
+			elements.userChoice!.innerHTML = '';
+			console.log((e.target as HTMLElement).classList.value);
 			elements.userChoice?.insertAdjacentHTML(
 				'beforeend',
-				(e.target as HTMLElement).parentElement?.innerHTML || ''
+				`<div class="${(e.target as HTMLElement).classList.value}"></div>`
 			);
 			player = option;
-			elements.gameBoard!.style.zIndex = '10';
-			elements.choose!.style.opacity = '0';
+			elements.gameBoard!.classList.add('moveFront');
+			elements.choose!.classList.add('hide');
 			break;
 		}
 	}
-	interval = setInterval(compChoose, time);
+	interval = setInterval(computerChoose, time);
 }
 
-document.querySelectorAll('.option i').forEach(element => element.addEventListener('click', playerChoose));
+document.querySelectorAll('.option').forEach(element => element.addEventListener('click', playerChoose));
 
-function compChoose() {
-	const rand = Math.round(Math.random() * 2);
-	elements.compChoice?.firstChild ? elements.compChoice?.removeChild(elements.compChoice!.firstChild) : null;
-	elements.compChoice?.insertAdjacentHTML('beforeend', '<i class="fas fa-hand-' + options[rand] + '"></i>');
-	compRepeat++;
+function computerChoose() {
+	const rand = Math.round(Math.random() * (options.length - 1));
+	elements.computerChoice?.firstChild
+		? elements.computerChoice?.removeChild(elements.computerChoice!.firstChild)
+		: null;
+	elements.computerChoice?.insertAdjacentHTML(
+		'beforeend',
+		'<div class="option fas fa-hand-' + options[rand] + '"></div>'
+	);
+	computerChooseRepeat++;
 	time += 70;
-	if (compRepeat == 10) {
+	if (computerChooseRepeat == 10) {
 		clearInterval(interval);
 		time = 300;
-		finish(game(player, options[rand]));
+		finishGame(game(player, options[rand]));
 	}
 }
 
 function game(one: string, two: string) {
-	if (winsFilters(one) === two) {
+	if (filterWins(one) === two) {
 		return 'You lose :(';
-	} else if (winsFilters(two) === one) {
+	} else if (filterWins(two) === one) {
 		animation();
 		return 'You win!';
 	} else {
@@ -58,7 +64,7 @@ function game(one: string, two: string) {
 	}
 }
 
-function winsFilters(param: string) {
+function filterWins(param: string) {
 	const wins = [
 		['rock', 'paper'],
 		['paper', 'scissors'],
@@ -66,26 +72,26 @@ function winsFilters(param: string) {
 	];
 
 	const result = wins.find(([item]) => item === param);
-	return result ? result[1] : '';
+	return result ? result[1] : null;
 }
 
-function finish(winner: string) {
+function finishGame(winner: string) {
 	elements.result?.insertAdjacentHTML('beforeend', winner);
-	elements.againButton!.style.opacity = '1';
+	elements.againButton!.classList.remove('hide');
 }
 
-function again() {
-	elements.gameBoard!.style.zIndex = '-1';
-	elements.result?.insertAdjacentHTML('beforeend', '');
-	elements.againButton!.style.opacity = ' 0';
-	elements.choose!.style.opacity = '1';
-	compRepeat = 0;
+function playAgain() {
+	elements.gameBoard!.classList.remove('moveFront');
+	elements.result?.firstChild ? elements.result?.removeChild(elements.result.firstChild) : null;
+	elements.againButton!.classList.add('hide');
+	elements.choose!.classList.remove('hide');
+	computerChooseRepeat = 0;
 	gsap.set('svg', {
 		opacity: 0
 	});
 }
 
-elements.againButton?.addEventListener('click', again);
+elements.againButton?.addEventListener('click', playAgain);
 
 function animation() {
 	const tl = gsap.timeline();
