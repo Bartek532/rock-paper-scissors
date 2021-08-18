@@ -1,13 +1,13 @@
 {
-	"devDependencies": {
-		"typescript": "^4.0.2"
-	},
-	"dependencies": {
-		"gsap": "^3.5.1"
-	},
-	"scripts": {
-		"deploy": "gh-pages -d dist",
-		"compile": "tsc"
-	},
-	"homepage": "https://bartek532.github.io/RockPaperScissors/"
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "gsap": "^3.5.1"
+  },
+  "scripts": {
+    "deploy": "gh-pages -d dist",
+    "compile": "tsc"
+  },
+  "homepage": "https://bartek532.github.io/rock-paper-scissors/"
 }
