@@ -6,8 +6,23 @@
     "gsap": "^3.5.1"
   },
   "scripts": {
+    "build": "parcel index.html",
     "deploy": "gh-pages -d dist",
     "compile": "tsc"
   },
-  "homepage": "https://bartek532.github.io/rock-paper-scissors/"
+  "homepage": "https://bartek532.github.io/rock-paper-scissors/",
+  "name": "rock",
+  "version": "1.0.0",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bartek532/rock-paper-scissors.git"
+  },
+  "keywords": [],
+  "author": "Bartosz Zagrodzki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bartek532/rock-paper-scissors/issues"
+  },
+  "description": "Simple game made with TypeScript"
 }
